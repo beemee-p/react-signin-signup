@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { signIn } from "../apis/signIn";
 import {
   UserValidation,
@@ -7,6 +8,7 @@ import {
 } from "../util/validation";
 
 const SignIn = (): ReactElement => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userValidation, setUserValidation] = useState<UserValidation | null>();
@@ -21,6 +23,7 @@ const SignIn = (): ReactElement => {
 
     setUserValidation(null);
     await signIn(email, password);
+    navigate("/");
   }
 
   return (
