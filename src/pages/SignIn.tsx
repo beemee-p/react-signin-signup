@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../apis/signIn";
 import {
   UserValidation,
@@ -27,8 +27,8 @@ const SignIn = (): ReactElement => {
   }
 
   return (
-    <div>
-      <article>
+    <ul>
+      <li>
         <span>이메일</span>
         <input
           type="email"
@@ -41,9 +41,9 @@ const SignIn = (): ReactElement => {
           userValidation?.type === VALIDATION_TYPE.EMAIL && (
             <p>{userValidation.error}</p>
           )}
-      </article>
+      </li>
 
-      <article>
+      <li>
         <span>비밀번호</span>
         <input
           type="password"
@@ -56,10 +56,11 @@ const SignIn = (): ReactElement => {
           userValidation?.type === VALIDATION_TYPE.PASSWORD && (
             <p>{userValidation.error}</p>
           )}
-      </article>
+      </li>
 
       <button onClick={handleSignIn}>로그인</button>
-    </div>
+      <Link to="/signup">회원가입</Link>
+    </ul>
   );
 };
 

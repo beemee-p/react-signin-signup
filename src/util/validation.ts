@@ -28,17 +28,17 @@ export function validateUser({
     return validation;
   }
 
-  if (password && !validatePassword(password)) {
-    validation.type = VALIDATION_TYPE.PASSWORD;
-    validation.isValid = false;
-    validation.error = "비밀번호는 8자 이상, 숫자, 특수문자를 포함해야 합니다.";
-    return validation;
-  }
-
   if (name && !validateName(name)) {
     validation.type = VALIDATION_TYPE.NAME;
     validation.isValid = false;
     validation.error = "이름은 한글, 영문 2자 이상이어야 합니다.";
+    return validation;
+  }
+
+  if (password && !validatePassword(password)) {
+    validation.type = VALIDATION_TYPE.PASSWORD;
+    validation.isValid = false;
+    validation.error = "비밀번호는 8자 이상, 숫자, 특수문자를 포함해야 합니다.";
     return validation;
   }
 
@@ -57,5 +57,5 @@ export function validatePassword(password: string) {
 
 export function validateName(name: string) {
   const regex = /^[가-힣a-zA-Z]{2,}$/;
-  return regex.test(name);
+  return regex.test(name.trim());
 }
