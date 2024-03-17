@@ -17,7 +17,15 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
     ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -30,5 +38,6 @@ module.exports = {
     },
     compress: true,
     port: 3003,
+    historyApiFallback: true,
   },
 };

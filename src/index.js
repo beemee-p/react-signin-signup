@@ -1,8 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom"; // Import ReactDOM package
+import App from "./App";
 
-const App = () => {
-  return <h1>Hello, world!</h1>;
-};
+const rootElement = document.getElementById("root");
 
-ReactDOM.render(<App />, document.getElementById("root"));
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}
