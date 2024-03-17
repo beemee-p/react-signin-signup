@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import Button from "../components/common/Button";
 import LinkButton from "../components/common/LinkButton";
@@ -21,14 +22,19 @@ const Header = () => {
 
   return (
     <HeaderStyle>
-      <img src={SpenditLogo} alt="logo" />
+      <Link to="/">
+        <img src={SpenditLogo} alt="logo" />
+      </Link>
 
       {location.pathname !== "/signup" && location.pathname !== "/signin" && (
         <div className="user-btns">
           {user ? (
-            <Button onClick={handleLogOut} design={{ type: "secondary" }}>
-              로그아웃
-            </Button>
+            <>
+              <p>환영합니다 {user?.name || "-"} 님</p>
+              <Button onClick={handleLogOut} design={{ type: "secondary" }}>
+                로그아웃
+              </Button>
+            </>
           ) : (
             <>
               <LinkButton to="/signin" design={{ type: "primary" }}>
@@ -42,8 +48,6 @@ const Header = () => {
           )}
         </div>
       )}
-
-      {user && <p>환영합니다 {user?.name || "-"} 님</p>}
     </HeaderStyle>
   );
 };
@@ -54,17 +58,27 @@ const HeaderStyle = styled.header`
   align-items: center;
   padding: 20px 0;
 
-  > img {
-    width: 108px;
-    height: 30px;
+  > a {
+    &:hover {
+      opacity: 0.7;
+    }
+    > img {
+      width: 108px;
+      height: 30px;
+    }
   }
 
   .user-btns {
     display: flex;
+    align-items: center;
 
     > a {
       margin-left: 8px;
       width: 75px;
+    }
+
+    > p {
+      margin-right: 8px;
     }
   }
 `;

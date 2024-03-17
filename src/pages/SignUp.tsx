@@ -1,11 +1,13 @@
 import React, { ReactElement, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
 import { signUp } from "../apis/signup";
-import {
-  UserValidation,
-  VALIDATION_TYPE,
-  validateUser,
-} from "../util/validation";
+import Button from "../components/common/Button";
+import FormInput from "../components/common/FormInput";
+import LinkButton from "../components/common/LinkButton";
+import { UserValidation, validateUser } from "../util/validation";
+import Template from "./Template";
+
 const SignUp = (): ReactElement => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -27,56 +29,66 @@ const SignUp = (): ReactElement => {
   }
 
   return (
-    <ul>
-      <li>
-        <span>이메일</span>
-        <input
+    <Template>
+      <h3>회원가입</h3>
+
+      <UlStyle>
+        <FormInput
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="이메일"
+          validation={userValidation}
         />
 
-        {!userValidation?.isValid &&
-          userValidation?.type === VALIDATION_TYPE.EMAIL && (
-            <p>{userValidation.error}</p>
-          )}
-      </li>
-
-      <li>
-        <span>이름</span>
-        <input
+        <FormInput
           type="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="name"
+          placeholder="이름"
+          validation={userValidation}
         />
 
-        {!userValidation?.isValid &&
-          userValidation?.type === VALIDATION_TYPE.NAME && (
-            <p>{userValidation.error}</p>
-          )}
-      </li>
-
-      <li>
-        <span>비밀번호</span>
-        <input
+        <FormInput
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="비밀번호"
+          validation={userValidation}
         />
 
-        {!userValidation?.isValid &&
-          userValidation?.type === VALIDATION_TYPE.PASSWORD && (
-            <p>{userValidation.error}</p>
-          )}
-      </li>
+        <div className="btn-wrap">
+          <Button onClick={handleSignUp} design={{ type: "primary" }}>
+            회원가입
+          </Button>
 
-      <button onClick={handleSignUp}>회원가입</button>
-      <Link to="/signin">로그인</Link>
-    </ul>
+          <LinkButton to="/signin" design={{ type: "secondary" }}>
+            로그인
+          </LinkButton>
+        </div>
+      </UlStyle>
+    </Template>
   );
 };
+
+export const UlStyle = styled.ul`
+  .btn-wrap {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 20px;
+
+    > button {
+      margin-right: 4px;
+      width: 72px;
+      height: 38px;
+    }
+
+    > a {
+      height: 38px;
+      width: 72px;
+    }
+  }
+`;
 
 export default SignUp;

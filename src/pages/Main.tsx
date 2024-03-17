@@ -59,7 +59,7 @@ const SectionStyle = styled.section`
   h1 {
     color: #0b2852;
     font-size: 50px;
-    font-weight: 400;
+    font-weight: 700;
   }
 
   > p {

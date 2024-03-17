@@ -1,11 +1,12 @@
 import React, { ReactElement, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { signIn } from "../apis/signIn";
-import {
-  UserValidation,
-  VALIDATION_TYPE,
-  validateUser,
-} from "../util/validation";
+import Button from "../components/common/Button";
+import FormInput from "../components/common/FormInput";
+import LinkButton from "../components/common/LinkButton";
+import { UserValidation, validateUser } from "../util/validation";
+import { UlStyle } from "./SignUp";
+import Template from "./Template";
 
 const SignIn = (): ReactElement => {
   const navigate = useNavigate();
@@ -27,40 +28,37 @@ const SignIn = (): ReactElement => {
   }
 
   return (
-    <ul>
-      <li>
-        <span>이메일</span>
-        <input
+    <Template>
+      <h3>로그인</h3>
+
+      <UlStyle>
+        <FormInput
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="이메일"
+          validation={userValidation}
         />
 
-        {!userValidation?.isValid &&
-          userValidation?.type === VALIDATION_TYPE.EMAIL && (
-            <p>{userValidation.error}</p>
-          )}
-      </li>
-
-      <li>
-        <span>비밀번호</span>
-        <input
+        <FormInput
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="비밀번호"
+          validation={userValidation}
         />
 
-        {!userValidation?.isValid &&
-          userValidation?.type === VALIDATION_TYPE.PASSWORD && (
-            <p>{userValidation.error}</p>
-          )}
-      </li>
+        <div className="btn-wrap">
+          <Button onClick={handleSignIn} design={{ type: "primary" }}>
+            로그인
+          </Button>
 
-      <button onClick={handleSignIn}>로그인</button>
-      <Link to="/signup">회원가입</Link>
-    </ul>
+          <LinkButton to="/signup" design={{ type: "secondary" }}>
+            회원가입
+          </LinkButton>
+        </div>
+      </UlStyle>
+    </Template>
   );
 };
 
