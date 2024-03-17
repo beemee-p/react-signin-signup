@@ -1,3 +1,5 @@
+import { User } from "../constants/user";
+
 export enum VALIDATION_TYPE {
   EMAIL = "email",
   PASSWORD = "password",
@@ -10,15 +12,7 @@ export interface UserValidation {
   error: string;
 }
 
-export function validateUser({
-  email,
-  password,
-  name,
-}: {
-  email: string;
-  password: string;
-  name?: string;
-}): UserValidation {
+export function validateUser({ email, password, name }: User): UserValidation {
   let validation = { type: VALIDATION_TYPE.EMAIL, isValid: true, error: "" };
 
   if (email && !validateEmail(email)) {
